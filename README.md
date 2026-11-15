@@ -39,7 +39,15 @@ falta cambiar el frontend porque `API_BASE_PATH = '/api'` es relativo.
 ### 2. Cargar el esquema
 
 El archivo `db/schema.sql` contiene el esquema sin `CREATE DATABASE`/`USE`, que
-los MySQL administrados no permiten. Crea un archivo `.env.deploy` o exporta las
+los MySQL administrados no permiten. La forma corta es copiar
+`.env.deploy.example` a `.env.deploy`, completar las credenciales y ejecutar:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/setup-cloud-db.ps1
+```
+
+El script carga `.env.deploy`, crea las tablas y crea la cuenta administradora.
+También puedes hacerlo paso a paso: crea un archivo `.env.deploy` o exporta las
 variables en tu terminal (no lo subas al repositorio):
 
 ```powershell
