@@ -25,16 +25,29 @@ When an administrator is signed in, the frontend keeps the home hero, doctor ima
 ## Deploy gratis (Render + MySQL administrado)
 
 Esta app se publica tal cual: un solo servicio Node sirve el frontend y la API, y
-la base de datos MySQL vive en un proveedor gratuito (por ejemplo Aiven). No hace
-falta cambiar el frontend porque `API_BASE_PATH = '/api'` es relativo.
+la base de datos MySQL vive en un proveedor gratuito. No hace falta cambiar el
+frontend porque `API_BASE_PATH = '/api'` es relativo.
 
 ### 1. Crear la base de datos
 
-1. Crea una cuenta gratuita en [Aiven](https://aiven.io) y un servicio **MySQL**
-   (plan Free). Alternativa: [db4free.net](https://www.db4free.net) (más simple,
-   pero borra bases inactivas y limita las conexiones).
-2. En el panel del servicio copia: host, puerto, usuario, contraseña y nombre de
-   la base. Descarga el certificado **CA** (`ca.pem`) si el proveedor lo exige.
+Aiven retiró su plan gratuito de MySQL (se apaga el 21 de diciembre de 2026).
+Las opciones gratuitas que siguen disponibles son:
+
+- **[TiDB Cloud Starter](https://tidbcloud.com)** (recomendada): compatible con
+  MySQL, plan gratis de 5 GiB y sin tarjeta. La primera instancia es gratuita.
+- **[db4free.net](https://www.db4free.net)**: MySQL 8 real, pero limita la base a
+  ~200 MB, limita conexiones y puede borrar bases inactivas.
+- **Aiven MySQL Developer** (5 USD/mes) si más adelante quieres un MySQL gestionado
+  con soporte.
+
+Pasos con TiDB Cloud Starter:
+
+1. Crea la cuenta y un **Starter** cluster (región cercana, por ejemplo
+   `us-east-1`).
+2. Abre **SQL Editor** y crea la base: `CREATE DATABASE medicita;`
+3. En **Connect** copia host, puerto (`4000`), usuario (termina en `.root`),
+   contraseña y nombre de la base (`medicita`).
+4. Descarga el certificado **CA** (`ca.pem`) desde la misma ventana de conexión.
 
 ### 2. Cargar el esquema
 
@@ -52,17 +65,20 @@ variables en tu terminal (no lo subas al repositorio):
 
 ```powershell
 $env:NODE_ENV="production"
-$env:DB_HOST="tu-host.aivencloud.com"
-$env:DB_PORT="3306"
-$env:DB_USER="avnadmin"
+$env:DB_HOST="gateway01.us-east-1.prod.aws.tidbcloud.com"
+$env:DB_PORT="4000"
+$env:DB_USER="3AbCdEfGhIjKl.root"
 $env:DB_PASSWORD="tu-password"
-$env:DB_NAME="defaultdb"
+$env:DB_NAME="medicita"
 $env:DB_CONNECTION_LIMIT="5"
 $env:DB_SSL="true"
 $env:DB_SSL_CA_BASE64=[Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\ruta\ca.pem"))
 $env:JWT_SECRET="pega-aqui-un-secreto-nuevo-de-48-bytes"
-npm run db:init -- --confirm-database defaultdb
+npm run db:init -- --confirm-database medicita
 ```
+
+> Con db4free.net el puerto es `3306`, no requiere certificado y debes usar
+> `DB_SSL=false`.
 
 Para generar un `JWT_SECRET` nuevo:
 
