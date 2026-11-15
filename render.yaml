@@ -1,0 +1,45 @@
+services:
+  - type: web
+    name: medicitas
+    runtime: node
+    plan: free
+    region: ohio
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JSON_BODY_LIMIT
+        value: 1mb
+      - key: AUTH_RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: AUTH_RATE_LIMIT_MAX
+        value: "20"
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_CONNECTION_LIMIT
+        value: "5"
+      - key: DB_QUEUE_LIMIT
+        value: "0"
+      - key: DB_CONNECT_TIMEOUT_MS
+        value: "10000"
+      - key: DB_SSL
+        value: "true"
+      - key: DB_SSL_REJECT_UNAUTHORIZED
+        value: "true"
+      - key: JWT_SECRET
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_SSL_CA_BASE64
+        sync: false

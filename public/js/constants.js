@@ -1,0 +1,14 @@
+export const DAY_NAMES_SHORT = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+export const DAY_NAMES_LONG = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+export const DOCTORS_INITIAL_PAGE_SIZE = 6;
+export const ADMIN_RECORDS_PAGE_SIZE = 6;
+export const MIN_SEARCH_LENGTH = 2;
+export const MAX_DOCTOR_SUGGESTIONS = 6;
+export const MAX_FEATURED_REVIEWS = 9;
+export const TOAST_DURATION_MS = 3600;
+export const DOCTOR_HIGHLIGHT_DURATION_MS = 2200;
+export const CAROUSEL_STEP_RATIO = 0.82;
+export const CAROUSEL_MIN_STEP_PX = 240;
+export const CAROUSEL_EDGE_THRESHOLD_PX = 2;
+export const LAST_THIRTY_DAYS_OFFSET = 29;
+export const API_BASE_PATH = '/api';

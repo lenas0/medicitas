@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>MediCita | Atención médica sencilla</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/js/main.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="MediCita, inicio">
+        <img class="brand-logo" src="/logo1.png" alt="">
+        <span>Medi<span class="brand-accent">Cita</span></span>
+      </a>
+      <nav class="header-actions" aria-label="Navegación principal">
+        <a class="nav-link" href="#doctors">Médicos</a>
+        <button class="button button-quiet hidden" id="my-appointments-link" type="button">Mis citas</button>
+        <button class="button button-quiet hidden" id="admin-panel-link" type="button">Administración</button>
+        <button class="button button-quiet" id="login-open" type="button">Iniciar sesión</button>
+        <button class="button button-primary" id="register-open" type="button">Crear cuenta</button>
+        <button class="button button-quiet hidden" id="logout-button" type="button">Cerrar sesión</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Cuidarte empieza aquí</p>
+          <h1>Encuentra al médico<br><span>ideal para ti.</span></h1>
+          <p class="hero-description">Busca por nombre o especialidad y encuentra atención profesional para cuidar de tu salud.</p>
+          <div class="hero-search-actions">
+            <form class="doctor-search" id="doctor-search-form" role="search" autocomplete="off">
+              <label class="sr-only" for="doctor-search-input">Buscar médico por nombre o especialidad</label>
+              <span class="search-icon" aria-hidden="true"></span>
+              <input id="doctor-search-input" type="search" placeholder="Nombre del médico o especialidad" aria-autocomplete="list" aria-controls="doctor-suggestions" aria-expanded="false">
+              <button class="button button-search" type="submit">Buscar</button>
+              <div class="doctor-suggestions hidden" id="doctor-suggestions" role="listbox" aria-label="Médicos sugeridos"></div>
+            </form>
+            <a class="button button-about" href="#about">Conócenos</a>
+          </div>
+          <p class="search-hint" id="doctor-search-status" aria-live="polite">Busca entre los profesionales disponibles.</p>
+          <div class="hero-note"><span class="note-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="check-icon"><path d="M9.2 16.3 5 12.1l1.4-1.4 2.8 2.8 6.9-6.9L17.5 8z"/></svg></span> Revisa perfiles, horarios y valor de consulta.</div>
+        </div>
+        <div class="hero-art">
+          <div class="hero-image-backdrop" aria-hidden="true"></div>
+          <img class="hero-doctor-image" src="/M%C3%A9dica%20rubia%20con%20bata%20y%20estetoscopio%20(1).png" alt="Médica con bata blanca y estetoscopio">
+          <div class="hero-image-caption"><span class="caption-check" aria-hidden="true"><svg viewBox="0 0 24 24" class="check-icon"><path d="M9.2 16.3 5 12.1l1.4-1.4 2.8 2.8 6.9-6.9L17.5 8z"/></svg></span><span><strong>Atención profesional</strong><small>Tu bienestar, en buenas manos</small></span></div>
+        </div>
+      </section>
+
+      <section class="service-highlights" aria-label="Servicios de MediCita">
+        <div class="service-highlight">
+          <span class="highlight-value" id="catalog-doctor-count" aria-live="polite">…</span>
+          <span class="highlight-label">Médicos profesionales</span>
+        </div>
+        <div class="service-highlight">
+          <span class="highlight-value" id="registered-patient-count" aria-live="polite">…</span>
+          <span class="highlight-label">Pacientes registrados</span>
+        </div>
+        <div class="service-highlight">
+          <span class="highlight-value">24/7</span>
+          <span class="highlight-label">Disponibilidad de la app</span>
+        </div>
+        <span class="sr-only" id="stats-status" aria-live="polite"></span>
+      </section>
+
+      <section class="about-section" id="about">
+        <div class="about-copy">
+          <p class="eyebrow">Conócenos</p>
+          <h2>Tu salud, nuestra prioridad</h2>
+          <p>MediCita te ayuda a encontrar profesionales de la salud y conocer su especialidad, horarios y valor de consulta en un solo lugar.</p>
+          <p>Explora el catálogo actualizado, revisa la información de cada profesional y, cuando encuentres el indicado, inicia sesión para solicitar tu cita.</p>
+          <a class="button button-primary" href="#doctors">Conocer médicos <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="about-visual" aria-label="Cómo funciona MediCita">
+          <div class="about-visual-heading"><span class="about-symbol" aria-hidden="true">+</span><span>Atención más sencilla</span></div>
+          <div class="about-step"><span>01</span><div><strong>Encuentra</strong><small>Busca por nombre o especialidad.</small></div></div>
+          <div class="about-step"><span>02</span><div><strong>Conoce</strong><small>Revisa perfil, tarifa y horarios.</small></div></div>
+          <div class="about-step"><span>03</span><div><strong>Agenda</strong><small>Solicita una cita con tu profesional.</small></div></div>
+        </div>
+      </section>
+
+      <section class="testimonials-section" id="experiences" aria-labelledby="experiences-title">
+        <div class="testimonials-heading">
+          <p class="eyebrow">Opiniones reales</p>
+          <h2 id="experiences-title">Experiencias de nuestros usuarios</h2>
+          <p>Calificaciones y comentarios compartidos por pacientes después de sus citas.</p>
+        </div>
+        <div class="testimonials-carousel">
+          <button class="testimonial-control" id="reviews-previous" type="button" aria-label="Ver reseñas anteriores" disabled>‹</button>
+          <div class="testimonials-track" id="featured-reviews" aria-live="polite">
+            <div class="testimonial-loading">Cargando reseñas…</div>
+          </div>
+          <button class="testimonial-control" id="reviews-next" type="button" aria-label="Ver más reseñas" disabled>›</button>
+        </div>
+        <p class="testimonials-status" id="reviews-status" aria-live="polite"></p>
+      </section>
+
+      <section class="content-section doctors-section" id="doctors">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Profesionales disponibles</p>
+            <h2>Encuentra a tu médico</h2>
+          </div>
+          <p class="section-caption">Conoce sus especialidades y elige el profesional ideal para ti.</p>
+        </div>
+        <div class="public-doctor-filters" aria-label="Filtros de médicos">
+          <label>Especialidad
+            <select id="public-doctor-specialty">
+              <option value="">Todas las especialidades</option>
+            </select>
+          </label>
+          <label>Día disponible
+            <select id="public-doctor-day">
+              <option value="">Cualquier día</option>
+              <option value="1">Lunes</option>
+              <option value="2">Martes</option>
+              <option value="3">Miércoles</option>
+              <option value="4">Jueves</option>
+              <option value="5">Viernes</option>
+              <option value="6">Sábado</option>
+              <option value="7">Domingo</option>
+            </select>
+          </label>
+          <label>Hora disponible
+            <input id="public-doctor-time" type="time">
+          </label>
+          <button class="button button-quiet" id="public-doctor-filter-clear" type="button">Limpiar filtros</button>
+        </div>
+        <div class="doctor-carousel">
+          <button class="testimonial-control doctor-control" id="doctors-previous" type="button" aria-label="Ver médicos anteriores" disabled>‹</button>
+          <div class="doctor-grid" id="doctor-list" aria-live="polite">
+            <div class="loading-card">Cargando médicos…</div>
+          </div>
+          <button class="testimonial-control doctor-control" id="doctors-next" type="button" aria-label="Ver más médicos" disabled>›</button>
+        </div>
+        <div class="doctor-catalog-footer">
+          <p class="doctor-catalog-status" id="doctor-catalog-status" aria-live="polite"></p>
+          <button class="button button-outline hidden" id="doctors-show-more" type="button">Ver más médicos</button>
+        </div>
+      </section>
+
+      <section class="content-section appointment-section hidden" id="appointments-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" id="appointments-eyebrow">Tu espacio personal</p>
+            <h2 id="appointments-title">Mis citas</h2>
+          </div>
+          <button class="button button-outline" id="refresh-appointments" type="button">Actualizar</button>
+        </div>
+        <div class="appointment-filters hidden" id="patient-appointment-filters">
+          <button class="admin-tab active" data-appointment-view="upcoming" type="button">Próximas</button>
+          <button class="admin-tab" data-appointment-view="history" type="button">Historial</button>
+          <button class="admin-tab" data-appointment-view="all" type="button">Todas</button>
+        </div>
+        <div class="appointment-list" id="appointment-list" aria-live="polite"></div>
+        <div class="exam-results hidden" id="exam-results">
+          <div class="admin-panel-heading">
+            <div><h3>Mis resultados de exámenes</h3><p>Resultados registrados para tus citas.</p></div>
+            <button class="button button-outline" id="refresh-exams" type="button">Actualizar resultados</button>
+          </div>
+          <div class="admin-card-grid" id="exam-list" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="content-section admin-section hidden" id="admin-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Herramientas de administración</p>
+            <h2>Gestionar el centro</h2>
+          </div>
+          <button class="button button-primary" id="admin-create-button" type="button">Agregar paciente</button>
+        </div>
+        <div class="admin-tabs" role="tablist" aria-label="Secciones de administración">
+          <button class="admin-tab active" id="patients-tab" type="button" role="tab" aria-selected="true">Pacientes registrados</button>
+          <button class="admin-tab" id="doctors-tab" type="button" role="tab" aria-selected="false">Profesionales médicos</button>
+          <button class="admin-tab" id="agenda-tab" type="button" role="tab" aria-selected="false">Agenda de hoy</button>
+          <button class="admin-tab" id="income-tab" type="button" role="tab" aria-selected="false">Control de ingresos</button>
+        </div>
+        <div class="admin-panel-heading" id="admin-panel-heading">
+          <div>
+            <h3 id="admin-list-title">Pacientes registrados</h3>
+            <p id="admin-list-description">Consulta y actualiza la información de los pacientes.</p>
+          </div>
+          <button class="button button-outline" id="admin-refresh" type="button">Actualizar lista</button>
+        </div>
+        <div class="admin-record-filters" id="admin-record-filters">
+          <label class="admin-search-field">Buscar paciente o médico
+            <input id="admin-record-search" type="search" placeholder="Nombre, correo o especialidad" autocomplete="off">
+          </label>
+          <div class="admin-doctor-filters hidden" id="admin-doctor-filters">
+            <label>Especialidad
+              <select id="admin-doctor-specialty"><option value="">Todas</option></select>
+            </label>
+            <label>Precio mínimo
+              <input id="admin-doctor-fee-min" type="number" min="0" step="1000" placeholder="Sin mínimo">
+            </label>
+            <label>Precio máximo
+              <input id="admin-doctor-fee-max" type="number" min="0" step="1000" placeholder="Sin máximo">
+            </label>
+            <label>Día disponible
+              <select id="admin-doctor-day">
+                <option value="">Cualquier día</option>
+                <option value="1">Lunes</option>
+                <option value="2">Martes</option>
+                <option value="3">Miércoles</option>
+                <option value="4">Jueves</option>
+                <option value="5">Viernes</option>
+                <option value="6">Sábado</option>
+                <option value="7">Domingo</option>
+              </select>
+            </label>
+            <label>Hora disponible
+              <input id="admin-doctor-time" type="time">
+            </label>
+          </div>
+          <button class="button button-quiet" id="admin-filter-clear" type="button">Limpiar filtros</button>
+        </div>
+        <div class="admin-card-grid" id="admin-list" aria-live="polite"></div>
+        <div class="admin-records-footer">
+          <p id="admin-records-status" aria-live="polite"></p>
+          <button class="button button-outline hidden" id="admin-records-show-more" type="button">Ver más</button>
+        </div>
+        <div class="admin-agenda hidden" id="admin-agenda">
+          <div class="admin-panel-heading">
+            <div>
+              <h3>Citas programadas para hoy</h3>
+              <p>Consulta y supervisa la agenda diaria de la clínica.</p>
+            </div>
+            <button class="button button-outline" id="admin-agenda-refresh" type="button">Actualizar agenda</button>
+          </div>
+          <div class="appointment-list" id="admin-appointment-list" aria-live="polite"></div>
+        </div>
+        <div class="income-dashboard hidden" id="income-dashboard">
+          <div class="income-toolbar">
+            <div>
+              <p class="eyebrow">Resumen financiero</p>
+              <h3>Ingresos por atenciones</h3>
+              <p class="income-description">Solo se incluyen citas marcadas como completadas; cada importe corresponde al precio guardado en la cita.</p>
+            </div>
+            <div class="income-presets" aria-label="Períodos rápidos">
+              <button class="income-preset" type="button" data-income-period="month">Este mes</button>
+              <button class="income-preset" type="button" data-income-period="previous-month">Mes anterior</button>
+              <button class="income-preset" type="button" data-income-period="30-days">Últimos 30 días</button>
+            </div>
+          </div>
+          <form class="income-filter" id="income-filter">
+            <label>Desde<input name="from" type="date" required></label>
+            <span class="income-range-separator" aria-hidden="true">→</span>
+            <label>Hasta<input name="to" type="date" required></label>
+            <button class="button button-primary" id="income-submit" type="submit">Consultar reporte</button>
+          </form>
+          <p class="income-range-label" id="income-range-label">Selecciona un período para consultar los ingresos.</p>
+          <div class="income-results" id="income-results" aria-live="polite">
+            <div class="income-welcome">
+              <span class="income-welcome-icon" aria-hidden="true">$</span>
+              <div><strong>Consulta los ingresos de la clínica</strong><p>Elige una fecha o un período rápido para ver el total y el detalle de las citas atendidas.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-cta">
+        <div><p class="eyebrow">Estamos para ayudarte</p><h2>Un buen cuidado comienza<br>con una buena conversación.</h2></div>
+        <a class="button button-light" href="#doctors">Ver médicos <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="/"><img class="brand-logo" src="/logo1.png" alt=""><span>Medi<span class="brand-accent">Cita</span></span></a>
+      <span>Atención clara, a tu ritmo.</span>
+      <a href="/api-docs">Documentación de la API</a>
+    </footer>
+
+    <dialog class="modal" id="auth-dialog" aria-labelledby="auth-title">
+      <form class="modal-card" id="auth-form">
+        <button class="modal-close" id="auth-close" type="button" aria-label="Cerrar">×</button>
+        <p class="eyebrow" id="auth-eyebrow">Bienvenido a MediCita</p>
+        <h2 id="auth-title">Inicia sesión</h2>
+        <p class="modal-description" id="auth-description">Accede para gestionar tus citas.</p>
+        <div id="register-fields" class="form-grid hidden">
+          <label>Nombre(s)<input name="firstNames" autocomplete="given-name" maxlength="80" required></label>
+          <label>Apellido(s)<input name="lastNames" autocomplete="family-name" maxlength="80" required></label>
+          <label class="field-full">Teléfono<input name="phone" type="tel" autocomplete="tel" maxlength="20" required></label>
+        </div>
+        <label>Correo electrónico<input name="email" type="email" autocomplete="email" maxlength="120" required></label>
+        <label>Contraseña<input name="password" type="password" autocomplete="current-password" minlength="8" required></label>
+        <p class="form-hint hidden" id="password-hint">Usa entre 8 y 72 bytes UTF-8.</p>
+        <button class="button button-primary submit-button" id="auth-submit" type="submit">Iniciar sesión</button>
+        <p class="switch-mode"><span id="switch-copy">¿Aún no tienes cuenta?</span> <button id="switch-auth-mode" type="button">Regístrate</button></p>
+        <p class="form-message" id="auth-message" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="booking-dialog" aria-labelledby="booking-title">
+      <form class="modal-card" id="booking-form">
+        <button class="modal-close" id="booking-close" type="button" aria-label="Cerrar">×</button>
+        <p class="eyebrow">Reserva tu consulta</p>
+        <h2 id="booking-title">Agendar cita</h2>
+        <p class="modal-description" id="booking-doctor-name"></p>
+        <p class="form-hint" id="booking-doctor-schedule"></p>
+        <input type="hidden" name="doctorId">
+        <label>Fecha y hora<input name="appointmentDatetime" type="datetime-local" required></label>
+        <label>Motivo de consulta <span class="optional">(opcional)</span><textarea name="reason" maxlength="255" rows="3" placeholder="Cuéntanos brevemente cómo podemos ayudarte"></textarea></label>
+        <p class="form-hint">La hora se interpreta según la hora local del servidor de la clínica. La disponibilidad se confirma al reservar.</p>
+        <button class="button button-primary submit-button" type="submit">Confirmar cita</button>
+        <p class="form-message" id="booking-message" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="patient-dialog" aria-labelledby="patient-dialog-title">
+      <form class="modal-card" id="patient-form">
+        <button class="modal-close" id="patient-close" type="button" aria-label="Cerrar">×</button>
+        <p class="eyebrow">Administración de pacientes</p>
+        <h2 id="patient-dialog-title">Agregar paciente</h2>
+        <input type="hidden" name="patientId">
+        <label>Nombre(s)<input name="firstNames" maxlength="80" required></label>
+        <label>Apellido(s)<input name="lastNames" maxlength="80" required></label>
+        <label>Correo electrónico<input name="email" type="email" maxlength="120" required></label>
+        <label>Teléfono <span class="optional">(opcional)</span><input name="phone" maxlength="20"></label>
+        <label>Contraseña <span class="optional" id="patient-password-optional">(obligatoria)</span><input name="password" type="password" minlength="8" maxlength="72" autocomplete="new-password"></label>
+        <p class="form-hint" id="patient-password-hint">Mínimo 8 caracteres; máximo 72 bytes UTF-8. Al editar, déjala vacía para conservar la contraseña actual.</p>
+        <button class="button button-primary submit-button" type="submit">Guardar paciente</button>
+        <p class="form-message" id="patient-message" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="doctor-dialog" aria-labelledby="doctor-dialog-title">
+      <form class="modal-card" id="doctor-form">
+        <button class="modal-close" id="doctor-close" type="button" aria-label="Cerrar">×</button>
+        <p class="eyebrow">Directorio profesional</p>
+        <h2 id="doctor-dialog-title">Agregar médico</h2>
+        <input type="hidden" name="doctorId">
+        <label>Nombre(s)<input name="firstNames" maxlength="80" required></label>
+        <label>Apellido(s)<input name="lastNames" maxlength="80" required></label>
+        <label>Especialidad<input name="specialty" maxlength="80" required></label>
+        <label>Descripción<textarea name="description" rows="3"></textarea></label>
+        <label>Valor de consulta<input name="consultationFee" type="number" min="0" step="0.01" required></label>
+        <label class="checkbox-label"><input name="active" type="checkbox" checked> Profesional activo y visible para pacientes</label>
+        <button class="button button-primary submit-button" type="submit">Guardar médico</button>
+        <p class="form-message" id="doctor-message" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="review-dialog" aria-labelledby="review-title">
+      <form class="modal-card" id="review-form">
+        <button class="modal-close" id="review-close" type="button" aria-label="Cerrar">×</button>
+        <p class="eyebrow">Cuéntanos cómo te fue</p>
+        <h2 id="review-title">Calificar atención</h2>
+        <input type="hidden" name="appointmentId">
+        <label>Calificación (1 a 5 estrellas)
+          <select name="rating" required>
+            <option value="5">5 — Excelente</option><option value="4">4 — Muy buena</option>
+            <option value="3">3 — Buena</option><option value="2">2 — Regular</option>
+            <option value="1">1 — Mala</option>
+          </select>
+        </label>
+        <label>Comentario <span class="optional">(opcional)</span><textarea name="comment" rows="3" maxlength="500"></textarea></label>
+        <label>Etiquetas opcionales <span class="optional">(separadas por comas)</span><input name="tags" maxlength="200" placeholder="amable, puntual, explicación clara"></label>
+        <label>Tiempo de espera en minutos <span class="optional">(opcional)</span><input name="waitMinutes" type="number" min="0" max="65535"></label>
+        <button class="button button-primary submit-button" type="submit">Enviar reseña</button>
+        <p class="form-message" id="review-message" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="exam-dialog" aria-labelledby="exam-title">
+      <form class="modal-card" id="exam-form">
+        <button class="modal-close" id="exam-close" type="button" aria-label="Cerrar">×</button>
+        <p class="eyebrow">Resultado para la cita</p>
+        <h2 id="exam-title">Registrar examen</h2>
+        <label>Identificador de cita<input name="appointmentId" type="number" min="1" required></label>
+        <label>Nombre del examen<input name="name" maxlength="100" required></label>
+        <label>Tipo
+          <select name="type" required>
+            <option value="numeric">Numérico</option><option value="qualitative">Cualitativo</option><option value="image">Imagen / radiología</option>
+          </select>
+        </label>
+        <label>Fecha<input name="date" type="date" required></label>
+        <div class="exam-type-fields" id="numeric-fields">
+          <label>Valor<input name="value" type="number" step="any"></label>
+          <label>Unidad <span class="optional">(opcional)</span><input name="unit" maxlength="20"></label>
+          <label>Límite mínimo<input name="referenceMin" type="number" step="any"></label>
+          <label>Límite máximo<input name="referenceMax" type="number" step="any"></label>
+          <label>Resultado o interpretación <span class="optional">(opcional)</span><textarea name="quantitativeResult" rows="2"></textarea></label>
+        </div>
+        <div class="exam-type-fields hidden" id="qualitative-fields">
+          <label>Resultado<select name="qualitativeResult"><option value="positive">Positivo</option><option value="negative">Negativo</option></select></label>
+          <label>Informe <span class="optional">(opcional)</span><textarea name="qualitativeReport" rows="2"></textarea></label>
+        </div>
+        <div class="exam-type-fields hidden" id="image-fields">
+          <label>URL de imagen<input name="imageUrl" type="url"></label>
+          <label>Informe radiológico<textarea name="imageReport" rows="3"></textarea></label>
+        </div>
+        <button class="button button-primary submit-button" type="submit">Guardar resultado</button>
+        <p class="form-message" id="exam-message" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
